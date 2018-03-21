@@ -13,11 +13,11 @@ import java.util.List;
 public class ResultLog {
 	
 	List<String> exeRL = new ArrayList<>();
-	List<String> results = new ArrayList<>();
+	ArrayList<ArrayList<String>> results = new ArrayList<>();
 	List<String> usersRL = new ArrayList<>();
 	
 	
-	public List<String> listOfResults(String startDate, String endDate, String exercise, String user) throws ParseException{
+	public ArrayList<ArrayList<String>> listOfResults(String startDate, String endDate, String exercise, String user) throws ParseException{
 		try {
 			
 			int id = getExerciseID(exercise);
@@ -35,13 +35,18 @@ public class ResultLog {
 			stmt.setDate(3, Date.valueOf(endDate));
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-					results.add(rs.getString("Dato") + " " + rs.getString("Resultat"));
+				ArrayList<String> res = new ArrayList<String>();
+				res.add(String.valueOf((rs.getString("Dato"))));
+				res.add(String.valueOf((rs.getString("Resultat"))));
+				results.add(res);
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(results);
+		System.out.println(results.get(1));
 		return results;
 		
 	}
