@@ -10,16 +10,16 @@ public class AntallTreningsøkter {
 //	Treningsøkter trening = new Treningsøkter(); // henter treningsøkter fra treningsøkter-klassen
 	
 	private static Connection conn;
-	private static ArrayList<Integer> treningsøkter = new ArrayList<>();
+	private static ArrayList<String> treningsøkter = new ArrayList<>();
 	private static ArrayList<String> notatFromØkt = new ArrayList<>();
- 	private int countEx = 0;
+ 	private int countEx = 1;
 	
 	
 	public AntallTreningsøkter() {
 	}
 	
 	
-	public static ArrayList<Integer> getExercises(Integer n) {
+	public static ArrayList<String> getExercises(Integer n) {
 		conn = Connect.getConn();
 		
 		try {	
@@ -32,7 +32,12 @@ public class AntallTreningsøkter {
 			
 			//results set
 			while (myRs.next()) {
-				treningsøkter.add((myRs.getInt("TreningsøktID")));
+				treningsøkter.add(String.valueOf((myRs.getString("TreningsøktID"))));
+				treningsøkter.add(String.valueOf((myRs.getString("Dato"))));
+				treningsøkter.add(String.valueOf((myRs.getString("Tidspunkt"))));
+				treningsøkter.add(String.valueOf((myRs.getString("Varighet"))));
+				treningsøkter.add(String.valueOf((myRs.getString("Øvelser"))));
+				treningsøkter.add(String.valueOf((myRs.getString("PersonligForm"))));
 				//countEx ++;
 				//treningsøkter.add((myRs.getInt("Ant treningsøkter: "+countEx)));
 				
@@ -52,8 +57,8 @@ public class AntallTreningsøkter {
 	public ArrayList<String> getNotat() {
 		conn = Connect.getConn();
 		
-		for (int i = 0; i < treningsøkter.size(); i++) {
-			countEx ++;
+		for (int i = 0; i < treningsøkter.size(); i+=5) {
+			countEx +=5;
 		}
 		
 		try {
@@ -65,7 +70,7 @@ public class AntallTreningsøkter {
 			while (rs.next()) {
 				notatFromØkt.add(rs.getString("informasjon"));
 			}
-			return notatFromØkt;
+			return notatFromØkt;     
 		}
 		catch (Exception exc) {
 			exc.getStackTrace();
