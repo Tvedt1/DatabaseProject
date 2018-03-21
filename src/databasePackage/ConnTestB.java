@@ -16,10 +16,21 @@ public class ConnTestB extends Connect  {
 	static Connection conn;
 	
 
+<<<<<<< HEAD
+		public static int checkConn() {
+				conn = Connect.getConn(); 
+				if (conn == null) {
+					return 0;
+				}
+				else {
+					return 1;
+				}	
+=======
 	public static int checkConn() {
 			conn = Connect.getConn();
 			if (conn == null) {
 				return 0;
+>>>>>>> 4670893d62cc79791791e38f8ba1fcba4a86b920
 			}
 			else {
 				return 1;
