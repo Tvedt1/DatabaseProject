@@ -1,6 +1,6 @@
 package databasePackage;
 
-import java.sql.Array;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,8 +23,6 @@ public class RegisterApparatus {
 		id = rs.getInt("ApparatCount");
 		stmt.close();
 		return id;
-		
-		
 	}
 	public void registerNewApparatus( String name, String beskrivelse) throws SQLException {
 		int id = createID() + 1;
