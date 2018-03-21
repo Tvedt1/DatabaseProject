@@ -49,6 +49,7 @@ public class UserGuiController implements Initializable {
 	@FXML TableColumn<Table, String> workShape;
 	@FXML TableColumn<Table, String> workNote;
 
+	WorkoutCounter count = new WorkoutCounter();
 	CreateExGroups CEG = new CreateExGroups();
 	AntallTreningsøkter tOkt = new AntallTreningsøkter();
 	ResultLog resLog = new ResultLog();
@@ -242,9 +243,15 @@ public class UserGuiController implements Initializable {
 	@FXML private Label countNumber;
 	
 	public void showCounts() {
+		String Oving = String.valueOf(counterExe.getValue());
+		String bruker = String.valueOf(counterUser.getValue());
 		
+		int counts = count.CountWorkouts(Oving, bruker);
+		String c = String.valueOf(counts);
 		
+		countNumber.setText(c);
 	}
+	
 
 	
 	
