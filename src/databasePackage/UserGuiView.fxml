@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="databasePackage.UserGuiController">
+  <tabs>
+    <Tab text="Hjem">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+    <Tab text="Registrere">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" layoutY="96.0" spacing="25.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <TextField fx:id="setApparatName" prefHeight="27.0" prefWidth="134.0" />
+                        <TextField fx:id="setApparatDesc" prefHeight="27.0" prefWidth="259.0" />
+                        <Button mnemonicParsing="false" onAction="#addNewApparat" text="Legg til" />
+                     </children>
+                  </HBox>
+                  <Label layoutX="47.0" layoutY="66.0" text="Navn på apparat" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutX="207.0" layoutY="66.0" text="Beskrivelse" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" />
+                  <HBox alignment="CENTER_LEFT" layoutX="47.0" layoutY="209.0" spacing="25.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <TextField fx:id="setExerciseName" prefHeight="27.0" prefWidth="134.0" />
+                        <TextField fx:id="setExerciseKg" prefHeight="27.0" prefWidth="97.0" text="0" />
+                        <TextField fx:id="setExerciseSets" prefHeight="27.0" prefWidth="135.0" text="0" />
+                        <Button mnemonicParsing="false" onAction="#addNewExercise" text="Legg til" />
+                     </children>
+                  </HBox>
+                  <Label layoutX="40.0" layoutY="184.0" text="Navn på øvelse" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutX="200.0" layoutY="184.0" text="Antall kg" />
+                  <Label layoutX="320.0" layoutY="184.0" text="Antall sets" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab text="Øvelsesgrupper">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+      <Tab text="Treningsøkter">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
