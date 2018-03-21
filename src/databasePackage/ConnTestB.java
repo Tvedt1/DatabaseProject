@@ -17,7 +17,7 @@ package databasePackage;
 		
 
 		public static int checkConn() {
-				conn = Connect.getConn();
+				conn = Connect.getConn(); 
 				if (conn == null) {
 					return 0;
 				}
