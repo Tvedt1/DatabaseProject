@@ -12,7 +12,7 @@ public class AntallTreningsøkter {
 	private static Connection conn;
 	private static ArrayList<Integer> treningsøkter = new ArrayList<>();
 	private static ArrayList<String> notatFromØkt = new ArrayList<>();
- 	private static int countEx = 0;
+ 	private int countEx = 0;
 	
 	
 	public AntallTreningsøkter() {
@@ -27,7 +27,7 @@ public class AntallTreningsøkter {
 			Statement myStmt = conn.createStatement();
 			   
 			//execute sql query
-			ResultSet myRs = myStmt.executeQuery("SELECT * FROM (SELECT * FROM Treningsøkt ORDER BY TreningsøktID DESC LIMIT " + n + ") sub\n" + " ORDER BY TreningsøktID DESC") ;
+			ResultSet myRs = myStmt.executeQuery("SELECT * FROM (SELECT * FROM Treningsøkt ORDER BY TreningsøktID DESC LIMIT " + n + ") sub ORDER BY TreningsøktID ASC") ;
 
 			
 			//results set
@@ -63,7 +63,7 @@ public class AntallTreningsøkter {
 			ResultSet rs = s.executeQuery("SELECT informasjon from notat WHERE TreningsøktID =" + countEx);
 			
 			while (rs.next()) {
-				notatFromØkt.add("informasjon");
+				notatFromØkt.add(rs.getString("informasjon"));
 			}
 		}
 		catch (Exception exc) {
