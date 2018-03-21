@@ -5,17 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="databasePackage.UserGuiController">
   <tabs>
-    <Tab text="Hjem">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
     <Tab text="Registrere">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -47,12 +44,35 @@
     </Tab>
       <Tab text="Øvelsesgrupper">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="testTable" layoutX="114.0" layoutY="84.0" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="c1" prefWidth="103.0" text="C1" />
+                        <TableColumn fx:id="c2" prefWidth="92.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
         </content>
       </Tab>
-      <Tab text="Treningsøkter">
+      <Tab fx:id="workouts" text="Treningsøkter">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="workoutTable" layoutX="10.0" layoutY="84.0" prefHeight="270.0" prefWidth="581.0">
+                    <columns>
+                        <TableColumn fx:id="workID" prefWidth="35.0" text="ID" />
+                      <TableColumn fx:id="workDate" prefWidth="111.0" text="Dato" />
+                      <TableColumn fx:id="workTime" prefWidth="114.0" text="Tidspunkt" />
+                        <TableColumn fx:id="workDuration" prefWidth="66.0" text="Varighet" />
+                        <TableColumn fx:id="workEx" minWidth="0.0" prefWidth="96.0" text="Øvelse" />
+                        <TableColumn fx:id="workShape" prefWidth="56.0" text="Form" />
+                        <TableColumn fx:id="workNote" prefWidth="102.0" text="Notat" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="218.0" layoutY="33.0" mnemonicParsing="false" onAction="#getLastWorkouts" text="Vis siste treningsøkter" />
+                  <TextField fx:id="workoutNumber" layoutX="30.0" layoutY="33.0" />
+               </children></AnchorPane>
         </content>
       </Tab>
   </tabs>
