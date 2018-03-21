@@ -14,6 +14,7 @@ public class ResultLog {
 	
 	List<String> exe = new ArrayList<>();
 	List<String> results = new ArrayList<>();
+	List<String> users = new ArrayList<>();
 	
 	
 	public List<String> listOfResults(String startDate, String endDate, String exercise, String user) throws ParseException{
@@ -103,4 +104,20 @@ public class ResultLog {
 			}
 			return uid;
 		}
+	public List<String> createUserList() {
+		Connection conn = Connect.getConn();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("Select Navn from Bruker");
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				users.add(rs.getString("Navn"));
+			}
+			System.out.println(users);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return users;
+	}
 }
