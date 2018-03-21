@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class AntallTreningsøkter<antallTreningsøkter> {
+public class AntallTreningsøkter {
 
 	private static Connection conn;
 	private static ArrayList<ArrayList<String>> treningsøkter = new ArrayList<>();
@@ -13,7 +13,7 @@ public class AntallTreningsøkter<antallTreningsøkter> {
 	public AntallTreningsøkter() {
 	}
 
-	public static ArrayList<ArrayList<String>> getExercises(Integer n) {
+	public ArrayList<ArrayList<String>> getExercises(Integer n) {
 		conn = Connect.getConn();
 
 		try {
