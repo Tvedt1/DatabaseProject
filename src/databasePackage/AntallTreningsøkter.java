@@ -7,17 +7,11 @@ import java.util.ArrayList;
 
 public class AntallTreningsøkter<antallTreningsøkter> {
 
-//	Treningsøkter trening = new Treningsøkter(); // henter treningsøkter fra treningsøkter-klassen
-	
 	private static Connection conn;
 	private static ArrayList<ArrayList<String>> treningsøkter = new ArrayList<>();
-	private static ArrayList<String> notatFromØkt = new ArrayList<>();
- 	private int countEx = 1;
-	
 	
 	public AntallTreningsøkter() {
 	}
-	
 	
 	public static ArrayList<ArrayList<String>> getExercises(Integer n) {
 		conn = Connect.getConn();
@@ -27,8 +21,9 @@ public class AntallTreningsøkter<antallTreningsøkter> {
 			Statement myStmt = conn.createStatement();
 			   
 			//execute sql query
-			ResultSet myRs = myStmt.executeQuery("SELECT * FROM (SELECT * FROM Treningsøkt ORDER BY TreningsøktID DESC LIMIT " + n + ") sub ORDER BY TreningsøktID DESC") ;
-
+			//ResultSet myRs = myStmt.executeQuery("SELECT * FROM (SELECT * FROM Treningsøkt ORDER BY TreningsøktID DESC LIMIT " + n + ") sub ORDER BY TreningsøktID DESC") ;
+			ResultSet myRs = myStmt.executeQuery("Select N.Informasjon, TR.TreningsøktID, TR.Dato, TR.Tidspunkt, TR.Varighet, TR.Øvelser, TR.PersonligForm from Notat as N \n" + 
+					"INNER JOIN Treningsøkt AS TR ON TR.TreningsøktID = N.TreningsøktID ORDER BY TreningsøktID DESC LIMIT " + n);
 			
 			//results set
 			while (myRs.next()) {
@@ -39,12 +34,9 @@ public class AntallTreningsøkter<antallTreningsøkter> {
 				tempTreningsøkt.add(String.valueOf((myRs.getString("Varighet"))));
 				tempTreningsøkt.add(String.valueOf((myRs.getString("Øvelser"))));
 				tempTreningsøkt.add(String.valueOf((myRs.getString("PersonligForm"))));
+				tempTreningsøkt.add(String.valueOf((myRs.getString("informasjon"))));
 				
 				treningsøkter.add(tempTreningsøkt);
-				//countEx ++;
-				//treningsøkter.add((myRs.getInt("Ant treningsøkter: "+countEx)));
-				
-				
 			}
 			System.out.println(treningsøkter);
 			return treningsøkter;
@@ -55,39 +47,9 @@ public class AntallTreningsøkter<antallTreningsøkter> {
 		return null;
 	}
 	
-
-	
-	public ArrayList<String> getNotat() {
-		conn = Connect.getConn();
-		
-		for (int i = 0; i < treningsøkter.size(); i+=5) {
-			countEx +=5;
-		}
-		
-		try {
-			Statement s = conn.createStatement();
-			
-
-			ResultSet rs = s.executeQuery("SELECT informasjon from notat WHERE TreningsøktID =" + countEx);
-			
-			while (rs.next()) {
-				notatFromØkt.add(rs.getString("informasjon"));
-			}
-			return notatFromØkt;     
-		}
-		catch (Exception exc) {
-			exc.getStackTrace();
-		}
-		return null;
-	}
-
-	
-	
 	public static void main(String[] args) {
 		AntallTreningsøkter n = new AntallTreningsøkter();
-		n.getNotat();
 		System.out.println("\n");
 		n.getExercises(2);
 	}
-	
 }
