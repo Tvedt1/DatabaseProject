@@ -1,6 +1,6 @@
 package databasePackage;
 
-import java.sql.Array;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +30,8 @@ public class RegisterExercise {
 	
 	
 
-	public void RegisterNewExercise(String name, String aname,int kilo, int sets) throws SQLException{
+	public void registerNewExercise(String name, String aname,int kilo, int sets) throws SQLException{
+
 		int id = createID() + 1;
 		Connection conn = Connect.getConn();
 		Statement stmt = conn.createStatement();
@@ -46,12 +47,12 @@ public class RegisterExercise {
 	public void connectToApparatus(int aid,int kilo, int sets, int eid) throws SQLException {
 		Connection conn = Connect.getConn();
 		Statement stmt = conn.createStatement();
-		String sql = String.format("INSERT INTO `Apparatï¿½velse`(`ï¿½velseID`, `Kilo`,'Sett','ApparatID') VALUES ('%s','%s','%s','%s')", eid, kilo, sets, aid);
+		String sql = String.format("INSERT INTO `ApparatØvelse`(`ØvelseID`, `Kilo`, `Sett`, `ApparatID`) VALUES ('%s','%s','%s','%s')", eid, kilo, sets, aid);
 		stmt.executeUpdate(sql);
 		stmt.close();
 	}
 	
-	public void catchApparatus()  {
+	public List<String> catchApparatus()  {
 		Connection conn = Connect.getConn();
 		PreparedStatement stmt;
 		try {
@@ -65,6 +66,7 @@ public class RegisterExercise {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return apparatus;
 	}
 	
 	public int getApparatusID(String apparatus) {
