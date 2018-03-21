@@ -1,8 +1,9 @@
-
+package databasePackage;
 
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,10 +40,13 @@ public class UserGuiController implements Initializable{
         String Navn = setApparatName.getText();
         String beskrivelse = setApparatDesc.getText();
         
-//      RegisterNewApparatus.
-        
-        
-   
+        try {
+        		RegisterApparatus reg = new RegisterApparatus();
+			reg.registerNewApparatus(Navn, beskrivelse);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 
@@ -52,6 +56,7 @@ public class UserGuiController implements Initializable{
 		
 	}
 	
-	
-	
 }
+
+	
+	
