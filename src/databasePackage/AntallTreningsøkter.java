@@ -22,17 +22,17 @@ public class AntallTreningsøkter<antallTreningsøkter> {
 			   
 			//execute sql query
 			//ResultSet myRs = myStmt.executeQuery("SELECT * FROM (SELECT * FROM Treningsøkt ORDER BY TreningsøktID DESC LIMIT " + n + ") sub ORDER BY TreningsøktID DESC") ;
-			ResultSet myRs = myStmt.executeQuery("Select N.Informasjon, TR.TreningsøktID, TR.Dato, TR.Tidspunkt, TR.Varighet, TR.Øvelser, TR.PersonligForm from Notat as N \n" + 
-					"INNER JOIN Treningsøkt AS TR ON TR.TreningsøktID = N.TreningsøktID ORDER BY TreningsøktID DESC LIMIT " + n);
+			ResultSet myRs = myStmt.executeQuery("Select N.Informasjon, TR.TreningsoktID, TR.Dato, TR.Tidspunkt, TR.Varighet, TR.Ovelser, TR.PersonligForm from Notat as N \n" + 
+					"INNER JOIN Treningsokt AS TR ON TR.TreningsoktID = N.TreningsoktID ORDER BY TreningsoktID DESC LIMIT " + n);
 			
 			//results set
 			while (myRs.next()) {
 				ArrayList<String> tempTreningsøkt = new ArrayList<>();
-				tempTreningsøkt.add(String.valueOf((myRs.getString("TreningsøktID"))));
+				tempTreningsøkt.add(String.valueOf((myRs.getString("TreningsoktID"))));
 				tempTreningsøkt.add(String.valueOf((myRs.getString("Dato"))));
 				tempTreningsøkt.add(String.valueOf((myRs.getString("Tidspunkt"))));
 				tempTreningsøkt.add(String.valueOf((myRs.getString("Varighet"))));
-				tempTreningsøkt.add(String.valueOf((myRs.getString("Øvelser"))));
+				tempTreningsøkt.add(String.valueOf((myRs.getString("Ovelser"))));
 				tempTreningsøkt.add(String.valueOf((myRs.getString("PersonligForm"))));
 				tempTreningsøkt.add(String.valueOf((myRs.getString("informasjon"))));
 				
