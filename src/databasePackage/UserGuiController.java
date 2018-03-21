@@ -7,14 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 
 public class UserGuiController implements Initializable{
@@ -27,6 +26,7 @@ public class UserGuiController implements Initializable{
 	@FXML private TextField setExerciseKg;
 	@FXML private TextField setExerciseSets;
 	@FXML private ChoiceBox chooseApparat;
+	@FXML private Tab workouts;
 
 	private Main main;
 	
@@ -49,18 +49,22 @@ public class UserGuiController implements Initializable{
 
     // Legger til nytt apparat
 	public void addNewApparat() {
-        String Navn = setApparatName.getText();
+        String navn = setApparatName.getText();
         String beskrivelse = setApparatDesc.getText();
         
-        try {
-        		RegisterApparatus regAp = new RegisterApparatus();
-			regAp.registerNewApparatus(Navn, beskrivelse);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        if ((!navn.equals("")) || (!beskrivelse.equals(""))){
+	        try {
+	        		RegisterApparatus regAp = new RegisterApparatus();
+				regAp.registerNewApparatus(navn, beskrivelse);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+        else {
+    			JOptionPane.showMessageDialog(null, "Du må fylle inn tomme felter");
+        }
 	}
 	
-
 	
 	// Legger til ny øvelse
 	public void addNewExercise() {
@@ -79,8 +83,13 @@ public class UserGuiController implements Initializable{
         else {
         		JOptionPane.showMessageDialog(null, "Du må fylle inn et navn");
         }
-
-        
+	}
+	
+	
+	public void getLastWorkouts() {
+		workouts.setText("LOL");
+		int n = 5;
+//		ArrayList<String> workoutList = Bjørnfunksjon(n);
 	}
 	
 }
