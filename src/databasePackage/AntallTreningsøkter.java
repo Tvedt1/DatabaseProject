@@ -71,44 +71,11 @@ public class AntallTreningsøkter {
 		}
 		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	
-	public ArrayList<Integer> addToExToList(){
-		treningsøkter.add(getNumberOfEx(countEx));
-		System.out.println(treningsøkter);
-		return treningsøkter;
-	}
-	
-	public int getNumberOfEx(int n) {
-		for (int i = 0; i < n; i++) {
-			countEx ++;
-			
-		}
-		System.out.println(countEx);
-		return countEx;
-	}
-	
-*/
-	
-	
+
 	
 	
 	public static void main(String[] args) {
 		AntallTreningsøkter n = new AntallTreningsøkter();
-		//n.getNumberOfEx(3);
-		//n.addToExToList();
 		n.getExercises(1);
 	}
 	
