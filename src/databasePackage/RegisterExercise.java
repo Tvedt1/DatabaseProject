@@ -17,11 +17,25 @@ public class RegisterExercise {
 		Connection conn = Connect.getConn();
 		PreparedStatement stmt = conn.prepareStatement("Select Count(OvelseID) as �velseCount from Ovelse");
 		System.out.println(stmt);
+<<<<<<< HEAD
 
 		ResultSet rs = stmt.executeQuery();
 		rs.next();
 		System.out.println(rs.getInt("OvelseCount"));
 
+=======
+		
+
+		ResultSet rs = stmt.executeQuery();
+		rs.next();
+		System.out.println(rs.getInt("�velseCount"));
+
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+		System.out.println(rs.getInt("OvelseCount"));
+
+		
+>>>>>>> d0d0efe93809cb3a82730e1e793144a7e77190b9
 		id = rs.getInt("OvelseCount");
 		stmt.close();
 		return id;
