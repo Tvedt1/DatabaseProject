@@ -16,26 +16,29 @@ public class RegisterExercise {
 	public int createID() throws SQLException {
 		int id = -1;
 		Connection conn = Connect.getConn();
-		PreparedStatement stmt = conn.prepareStatement("Select Count(ØvelseID) as ØvelseCount from Øvelse"); 
+		PreparedStatement stmt = conn.prepareStatement("Select Count(ï¿½velseID) as ï¿½velseCount from ï¿½velse"); 
 		System.out.println(stmt);
 		
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
-		System.out.println(rs.getInt("ØvelseCount"));
+		System.out.println(rs.getInt("ï¿½velseCount"));
 		
-		id = rs.getInt("ØvelseCount");
+		id = rs.getInt("ï¿½velseCount");
 		stmt.close();
 		return id;	
 	}
 	
 	
+
 	public void registerNewExercise(String name, String aname,int kilo, int sets) throws SQLException{
+
 		int id = createID() + 1;
 		Connection conn = Connect.getConn();
 		Statement stmt = conn.createStatement();
-		String sql = String.format("INSERT INTO `Øvelse`(`ØvelseID`, `Navn`) VALUES ('%s','%s')", id, name);
+		String sql = String.format("INSERT INTO `ï¿½velse`(`ï¿½velseID`, `Navn`) VALUES ('%s','%s')", id, name);
 		stmt.executeUpdate(sql);
 		stmt.close();
+
 		int aid = getApparatusID(aname);
 		connectToApparatus(aid, kilo, sets, id);
 		
