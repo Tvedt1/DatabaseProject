@@ -49,7 +49,7 @@ public class AntallTreningsøkter {
 	
 
 	
-	public String getNotat() {
+	public ArrayList<String> getNotat() {
 		conn = Connect.getConn();
 		
 		for (int i = 0; i < treningsøkter.size(); i++) {
@@ -65,6 +65,7 @@ public class AntallTreningsøkter {
 			while (rs.next()) {
 				notatFromØkt.add(rs.getString("informasjon"));
 			}
+			return notatFromØkt;
 		}
 		catch (Exception exc) {
 			exc.getStackTrace();
