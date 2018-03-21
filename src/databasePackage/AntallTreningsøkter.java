@@ -5,12 +5,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class AntallTreningsøkter {
+public class AntallTreningsøkter<antallTreningsøkter> {
 
 //	Treningsøkter trening = new Treningsøkter(); // henter treningsøkter fra treningsøkter-klassen
 	
 	private static Connection conn;
-	private static ArrayList<String> treningsøkter = new ArrayList<>();
+	private static ArrayList<ArrayList<String>> treningsøkter = new ArrayList<>();
 	private static ArrayList<String> notatFromØkt = new ArrayList<>();
  	private int countEx = 1;
 	
@@ -19,7 +19,7 @@ public class AntallTreningsøkter {
 	}
 	
 	
-	public static ArrayList<String> getExercises(Integer n) {
+	public static ArrayList<ArrayList<String>> getExercises(Integer n) {
 		conn = Connect.getConn();
 		
 		try {	
@@ -27,17 +27,20 @@ public class AntallTreningsøkter {
 			Statement myStmt = conn.createStatement();
 			   
 			//execute sql query
-			ResultSet myRs = myStmt.executeQuery("SELECT * FROM (SELECT * FROM Treningsøkt ORDER BY TreningsøktID DESC LIMIT " + n + ") sub ORDER BY TreningsøktID ASC") ;
+			ResultSet myRs = myStmt.executeQuery("SELECT * FROM (SELECT * FROM Treningsøkt ORDER BY TreningsøktID DESC LIMIT " + n + ") sub ORDER BY TreningsøktID DESC") ;
 
 			
 			//results set
 			while (myRs.next()) {
-				treningsøkter.add(String.valueOf((myRs.getString("TreningsøktID"))));
-				treningsøkter.add(String.valueOf((myRs.getString("Dato"))));
-				treningsøkter.add(String.valueOf((myRs.getString("Tidspunkt"))));
-				treningsøkter.add(String.valueOf((myRs.getString("Varighet"))));
-				treningsøkter.add(String.valueOf((myRs.getString("Øvelser"))));
-				treningsøkter.add(String.valueOf((myRs.getString("PersonligForm"))));
+				ArrayList<String> tempTreningsøkt = new ArrayList<>();
+				tempTreningsøkt.add(String.valueOf((myRs.getString("TreningsøktID"))));
+				tempTreningsøkt.add(String.valueOf((myRs.getString("Dato"))));
+				tempTreningsøkt.add(String.valueOf((myRs.getString("Tidspunkt"))));
+				tempTreningsøkt.add(String.valueOf((myRs.getString("Varighet"))));
+				tempTreningsøkt.add(String.valueOf((myRs.getString("Øvelser"))));
+				tempTreningsøkt.add(String.valueOf((myRs.getString("PersonligForm"))));
+				
+				treningsøkter.add(tempTreningsøkt);
 				//countEx ++;
 				//treningsøkter.add((myRs.getInt("Ant treningsøkter: "+countEx)));
 				
@@ -82,7 +85,9 @@ public class AntallTreningsøkter {
 	
 	public static void main(String[] args) {
 		AntallTreningsøkter n = new AntallTreningsøkter();
-		n.getExercises(1);
+		n.getNotat();
+		System.out.println("\n");
+		n.getExercises(2);
 	}
 	
 }
