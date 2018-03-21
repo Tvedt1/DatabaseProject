@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
@@ -20,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,26 +49,9 @@ public class UserGuiController implements Initializable {
 	@FXML TableColumn<Table, String> workShape;
 	@FXML TableColumn<Table, String> workNote;
 
-	
-	// TEST TABLE
-	@FXML TableView<testTable> testTable;
-	@FXML TableColumn<testTable, String> c1;
-	@FXML TableColumn<testTable, String> c2;
-
-	final ObservableList<testTable> data = FXCollections.observableArrayList(
-			new testTable("Navn", "Kollonne"), 
-			new testTable("Test", "Noe")
-			);
-	
-	
-	
-	
-
-
-	
-
-	
-	
+	CreateExGroups CEG = new CreateExGroups();
+	AntallTreningsøkter tOkt = new AntallTreningsøkter();
+	ResultLog resLog = new ResultLog();
 	RegisterExercise regEx = new RegisterExercise();
 	private Main main;
 	
@@ -78,24 +63,44 @@ public class UserGuiController implements Initializable {
 		return chooseApparatus;
 	}
 	
+	public ObservableList<String> getUsername() {
+		List<String> username = resLog.createUserList();
+		ObservableList<String> userNames = FXCollections.observableArrayList(username);
+		return userNames;
+	}
+	
+	public ObservableList<String> getOvelser() {
+		List<String> exe = resLog.createExerciseList();
+		ObservableList<String> exercises = FXCollections.observableArrayList(exe);
+		return exercises;
+	}
+	
+	
 	// Sets main
 	public void setMain(Main main) {
 		this.main = main;
 	}
 
+	
+	// *************** INITIALIZE ************
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// Setter apparater inn i chooseApparater-dropdown
 		chooseApparat.setItems(getApparater());
-		
-		c1.setCellValueFactory(new PropertyValueFactory<testTable, String>("r1"));
-		c2.setCellValueFactory(new PropertyValueFactory<testTable, String>("r2"));
-
-		testTable.setItems(data);
-		
-		
+		userName.setItems(getUsername());
+		ovelse.setItems(getOvelser());	
+		o1.setItems(getOvelser());
+		o2.setItems(getOvelser());
+		o3.setItems(getOvelser());
+		o4.setItems(getOvelser());
+		o5.setItems(getOvelser());
+		counterUser.setItems(getUsername());
+		counterExe.setItems(getOvelser());
 	}
 	
+	
+	// *************** REGISTRERE ************
 	
 	// Legger til nytt apparat
 	public void addNewApparat() {
@@ -111,6 +116,7 @@ public class UserGuiController implements Initializable {
 		}
 	}
 
+	
 	// Legger til ny øvelse
 	public void addNewExercise() {
         String navn = setExerciseName.getText();
@@ -124,9 +130,9 @@ public class UserGuiController implements Initializable {
         		e.printStackTrace();
         	}        	
 	}
+
 	
 	// *************** TRENINGSØKTER ************
-
 	
 	public ObservableList<Table> getData(ArrayList<ArrayList<String>> okter) {
 		ObservableList<Table> workT = FXCollections.observableArrayList();
@@ -156,7 +162,6 @@ public class UserGuiController implements Initializable {
 		workShape.setCellValueFactory(new PropertyValueFactory<Table, String>("rShape"));
 		workNote.setCellValueFactory(new PropertyValueFactory<Table, String>("rNote"));
 		
-		AntallTreningsøkter tOkt = new AntallTreningsøkter();
 		ArrayList<ArrayList<String>> okter = tOkt.getExercises(n);
 		
 		workoutTable.setItems(getData(okter));
@@ -166,8 +171,8 @@ public class UserGuiController implements Initializable {
 	
 	// *************** RESULTATLOGG ************
 	
-	@FXML private ChoiceBox userName;
-	@FXML private ChoiceBox ovelse;
+	@FXML private ChoiceBox<String> userName;
+	@FXML private ChoiceBox<String> ovelse;
 	@FXML private TextField sDate;
 	@FXML private TextField eDate;
 	
@@ -177,7 +182,7 @@ public class UserGuiController implements Initializable {
 	
 	
 	
-	public void showResults() {
+	public void showResults() throws ParseException {
         String user = String.valueOf(userName.getValue());
         String exercise = String.valueOf(ovelse.getValue());
         String startDate = sDate.getText();
@@ -186,22 +191,62 @@ public class UserGuiController implements Initializable {
 		resDate.setCellValueFactory(new PropertyValueFactory<Results, String>("rDate"));
 		resRes.setCellValueFactory(new PropertyValueFactory<Results, String>("rRes"));
 		
-		ResultLog resLog = new ResultLog();
-		ArrayList<ArrayList<String>> ress = resLog.listOfResults(startDate, endDate, exercise, user);
 		
+//		ArrayList<ArrayList<String>> okter = tOkt.getExercises(n);
+		ArrayList<ArrayList<String>> ress = resLog.listOfResults(startDate, endDate, exercise, user);
+		System.out.println(ress);
 		results.setItems(getResults(ress));
+
 	}
 
 	
-	public ObservableList<Results> getResults(ArrayList<ArrayList<String>> res) {
+	public ObservableList<Results> getResults(ArrayList<ArrayList<String>> ress) {
 		ObservableList<Results> resU = FXCollections.observableArrayList();
-		for (int i = 0; i<resU.size(); i++) {
-			String a = resU.get(i).get(0);
-			String b = resU.get(i).get(1);
-			resU.add(new Table(a, b));
+		for (int i = 0; i<ress.size(); i++) {
+			String a = ress.get(i).get(0);
+			String b = ress.get(i).get(1);
+			resU.add(new Results(a, b));
+			System.out.println(resU);
 		}		
 		return resU;
 	}
+	
+	
+	// *************** ØVELSESGRUPPER ************
+
+	@FXML private TextField grpName;
+	@FXML private TextField grpUserName;
+	@FXML private ChoiceBox<String> o1;
+	@FXML private ChoiceBox<String> o2;
+	@FXML private ChoiceBox<String> o3;
+	@FXML private ChoiceBox<String> o4;
+	@FXML private ChoiceBox<String> o5;
+	
+	public void newOvelsesGroup() throws SQLException {	
+		String name = grpName.getText();
+		String brukerID = grpUserName.getText();
+		String ov1 = String.valueOf(o1.getValue());
+		String ov2 = String.valueOf(o2.getValue());
+		String ov3 = String.valueOf(o3.getValue());
+		String ov4 = String.valueOf(o4.getValue());
+		String ov5 = String.valueOf(o5.getValue());
+		CEG.registerExGroup(name, brukerID, ov1, ov2, ov3, ov4, ov5);
+		
+	}
+	
+	
+	// *************** TELLER ************
+
+	@FXML private ChoiceBox<String> counterUser;
+	@FXML private ChoiceBox<String> counterExe;
+	@FXML private Label countNumber;
+	
+	public void showCounts() {
+		
+		
+	}
+
+	
 	
 
 			

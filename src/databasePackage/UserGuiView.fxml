@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -39,12 +40,14 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="testTable" layoutX="114.0" layoutY="84.0" prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn fx:id="c1" prefWidth="103.0" text="C1" />
-                        <TableColumn fx:id="c2" prefWidth="92.0" text="C2" />
-                    </columns>
-                  </TableView>
+                  <TextField fx:id="grpName" layoutX="23.0" layoutY="57.0" prefHeight="27.0" prefWidth="154.0" promptText="Gruppenavn" />
+                  <ChoiceBox fx:id="o1" layoutX="25.0" layoutY="107.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="o2" layoutX="25.0" layoutY="157.0" prefWidth="150.0" />
+                  <Button layoutX="230.0" layoutY="301.0" mnemonicParsing="false" onAction="#newOvelsesGroup" text="Lag ny gruppe" />
+                  <ChoiceBox fx:id="o3" layoutX="25.0" layoutY="203.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="o4" layoutX="25.0" layoutY="251.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="o5" layoutX="25.0" layoutY="301.0" prefWidth="150.0" />
+                  <TextField fx:id="grpUserName" layoutX="23.0" layoutY="20.0" prefHeight="27.0" prefWidth="154.0" promptText="Brukernavn" />
                </children></AnchorPane>
         </content>
       </Tab>
@@ -72,21 +75,37 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="20.0" layoutY="184.0" prefHeight="155.0" prefWidth="561.0">
+                  <TableView fx:id="results" layoutX="20.0" layoutY="184.0" prefHeight="155.0" prefWidth="561.0">
                     <columns>
-                      <TableColumn prefWidth="155.0" text="Dato" />
-                        <TableColumn prefWidth="262.0" text="Resultat" />
+                      <TableColumn fx:id="resDate" prefWidth="243.0" text="Dato" />
+                        <TableColumn fx:id="resRes" prefWidth="312.0" text="Resultat" />
                     </columns>
                   </TableView>
-                  <ChoiceBox layoutX="46.0" layoutY="129.0" prefHeight="27.0" prefWidth="193.0" />
+                  <ChoiceBox fx:id="ovelse" layoutX="46.0" layoutY="129.0" prefHeight="27.0" prefWidth="193.0" />
                   <Label layoutX="46.0" layoutY="33.0" text="Bruker" />
-                  <ChoiceBox layoutX="46.0" layoutY="62.0" prefHeight="27.0" prefWidth="193.0" />
+                  <ChoiceBox fx:id="userName" layoutX="46.0" layoutY="62.0" prefHeight="27.0" prefWidth="193.0" />
                   <Label layoutX="46.0" layoutY="103.0" text="Øvelse" />
-                  <Button layoutX="508.0" layoutY="129.0" mnemonicParsing="false" text="Vis" />
-                  <TextField layoutX="281.0" layoutY="62.0" promptText="yyyy-mm-dd" />
-                  <TextField layoutX="281.0" layoutY="129.0" promptText="yyyy-mm-dd" />
+                  <Button layoutX="508.0" layoutY="129.0" mnemonicParsing="false" onAction="#showResults" text="Vis" />
+                  <TextField fx:id="sDate" layoutX="281.0" layoutY="62.0" promptText="yyyy-mm-dd" />
+                  <TextField fx:id="eDate" layoutX="281.0" layoutY="129.0" promptText="yyyy-mm-dd" />
                   <Label layoutX="280.0" layoutY="103.0" text="Sluttdato" />
                   <Label layoutX="287.0" layoutY="33.0" text="Startdato" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab text="Teller">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ChoiceBox fx:id="counterExe" layoutX="255.0" layoutY="93.0" prefWidth="150.0" />
+                  <Label fx:id="countNumber" layoutX="181.0" layoutY="188.0" text="0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="counterUser" layoutX="76.0" layoutY="93.0" prefWidth="150.0" />
+                  <Button layoutX="88.0" layoutY="185.0" mnemonicParsing="false" onAction="#showCounts" text="Vis" />
                </children>
             </AnchorPane>
         </content>
