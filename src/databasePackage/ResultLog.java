@@ -16,38 +16,31 @@ public class ResultLog {
 	List<String> results = new ArrayList<>();
 	
 	
-	public void listOfResults(String startDate, String endDate, String exercise) throws ParseException{
+	public List<String> listOfResults(String startDate, String endDate, String exercise) throws ParseException{
 		try {
-			String sDate = startDate;
-			SimpleDateFormat sdfStart = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date uDate = sdfStart.parse(sDate);
-			Date start = new Date(uDate.getTime());
-			
-			String eDate = endDate;
-			SimpleDateFormat sdfEnd = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date stDate = sdfEnd.parse(eDate);
-			Date end = new Date(stDate.getTime());
 			
 			int id = getExerciseID(exercise);
 			
 			Connection conn = Connect.getConn();
 			PreparedStatement stmt;
 			String query = "Select R.Dato, R.Resultat from Ovelse AS O "
-					+ "inner join ResultatI AS RI ON O.OvelseID = RI.OvelseID"
-					+ "INNER JOIN Resultater AS R ON RI.ResultatID = R.ResultatID"
-					+ "WHERE R.Dato between ? and ? ";
-			
+					+ "inner join ResultatI AS RI ON (O.OvelseID = RI.OvelseID)"
+					+ " INNER JOIN Resultater AS R ON (RI.ResultatID = R.ResultatID)"
+					+ " WHERE O.OvelseID = ? and R.Dato between ? and ? ";
 			stmt = conn.prepareStatement(query);
+			stmt.setInt(1, id);
+			stmt.setDate(2, Date.valueOf(startDate));
+			stmt.setDate(3, Date.valueOf(endDate));
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-					results.add(rs.getString("Dato") + rs.getString("Resultater"));
+					results.add(rs.getString("Dato") + " " + rs.getString("Resultat"));
 			}
-			System.out.println();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return results;
 		
 	}
 	
@@ -69,7 +62,7 @@ public class ResultLog {
 			e.printStackTrace();
 		}
 	}
-	public int getExerciseID(String øvelsenavn) {
+	public int getExerciseID(String Ã¸velsenavn) {
 		
 		//initilize uid
 		int eid= 0;
@@ -77,7 +70,7 @@ public class ResultLog {
 		try {
 			Connection conn = Connect.getConn();
 			PreparedStatement stmt = conn.prepareStatement("Select OvelseID from Ovelse where Navn=?"); 
-			stmt.setString(1, øvelsenavn);
+			stmt.setString(1, Ã¸velsenavn);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				eid = (rs.getInt(1)); 
