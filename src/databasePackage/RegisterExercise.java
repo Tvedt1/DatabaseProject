@@ -29,14 +29,14 @@ public class RegisterExercise {
 	}
 	
 	
-	public void RegisterNewExercise(String name, int aname,int kilo, int sets) throws SQLException{
+	public void RegisterNewExercise(String name, String aname,int kilo, int sets) throws SQLException{
 		int id = createID() + 1;
 		Connection conn = Connect.getConn();
 		Statement stmt = conn.createStatement();
 		String sql = String.format("INSERT INTO `Øvelse`(`ØvelseID`, `Navn`) VALUES ('%s','%s')", id, name);
 		stmt.executeUpdate(sql);
 		stmt.close();
-		int aid = aname;
+		int aid = getApparatusID(aname);
 		connectToApparatus(aid, kilo, sets, id);
 		
 	}
