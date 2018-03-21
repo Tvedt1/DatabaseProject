@@ -27,7 +27,7 @@ public class AntallTreningsøkter {
 			Statement myStmt = conn.createStatement();
 			   
 			//execute sql query
-			ResultSet myRs = myStmt.executeQuery("SELECT * FROM (SELECT * FROM Treningsøkt ORDER BY TreningsøktID DESC LIMIT " + n + ") sub\n" + " ORDER BY TreningsøktID DESC") ;
+			ResultSet myRs = myStmt.executeQuery("SELECT * FROM (SELECT * FROM Treningsøkt ORDER BY TreningsøktID DESC LIMIT " + n + ") sub ORDER BY TreningsøktID ASC") ;
 
 			
 			//results set
