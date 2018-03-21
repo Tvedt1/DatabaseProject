@@ -16,14 +16,14 @@ public class RegisterExercise {
 	public int createID() throws SQLException {
 		int id = -1;
 		Connection conn = Connect.getConn();
-		PreparedStatement stmt = conn.prepareStatement("Select Count(ï¿½velseID) as ï¿½velseCount from ï¿½velse"); 
+		PreparedStatement stmt = conn.prepareStatement("Select Count(OvelseID) as ï¿½velseCount from Ovelse"); 
 		System.out.println(stmt);
 		
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
-		System.out.println(rs.getInt("ï¿½velseCount"));
+		System.out.println(rs.getInt("OvelseCount"));
 		
-		id = rs.getInt("ï¿½velseCount");
+		id = rs.getInt("OvelseCount");
 		stmt.close();
 		return id;	
 	}
@@ -35,7 +35,7 @@ public class RegisterExercise {
 		int id = createID() + 1;
 		Connection conn = Connect.getConn();
 		Statement stmt = conn.createStatement();
-		String sql = String.format("INSERT INTO `ï¿½velse`(`ï¿½velseID`, `Navn`) VALUES ('%s','%s')", id, name);
+		String sql = String.format("INSERT INTO `Ovelse`(`OvelseID`, `Navn`) VALUES ('%s','%s')", id, name);
 		stmt.executeUpdate(sql);
 		stmt.close();
 
@@ -47,7 +47,7 @@ public class RegisterExercise {
 	public void connectToApparatus(int aid,int kilo, int sets, int eid) throws SQLException {
 		Connection conn = Connect.getConn();
 		Statement stmt = conn.createStatement();
-		String sql = String.format("INSERT INTO `ApparatØvelse`(`ØvelseID`, `Kilo`, `Sett`, `ApparatID`) VALUES ('%s','%s','%s','%s')", eid, kilo, sets, aid);
+		String sql = String.format("INSERT INTO `ApparatOvelse`(`OvelseID`, `Kilo`, `Sett`, `ApparatID`) VALUES ('%s','%s','%s','%s')", eid, kilo, sets, aid);
 		stmt.executeUpdate(sql);
 		stmt.close();
 	}
