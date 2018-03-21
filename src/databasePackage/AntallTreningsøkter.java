@@ -12,7 +12,7 @@ public class AntallTreningsøkter {
 	private static Connection conn;
 	private static ArrayList<Integer> treningsøkter = new ArrayList<>();
 	private static ArrayList<String> notatFromØkt = new ArrayList<>();
- 	private static int countEx = 0;
+ 	private int countEx = 0;
 	
 	
 	public AntallTreningsøkter() {
@@ -63,7 +63,7 @@ public class AntallTreningsøkter {
 			ResultSet rs = s.executeQuery("SELECT informasjon from notat WHERE TreningsøktID =" + countEx);
 			
 			while (rs.next()) {
-				notatFromØkt.add("informasjon");
+				notatFromØkt.add(rs.getString("informasjon"));
 			}
 		}
 		catch (Exception exc) {
