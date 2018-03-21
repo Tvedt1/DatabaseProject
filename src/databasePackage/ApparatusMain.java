@@ -8,6 +8,8 @@ public class ApparatusMain {
 		try {
 			RegisterApparatus test = new RegisterApparatus();
 			test.createID();
+			RegisterExercise ExTest = new RegisterExercise();
+			ExTest.catchApparatus();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
