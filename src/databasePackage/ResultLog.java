@@ -12,9 +12,9 @@ import java.util.List;
 
 public class ResultLog {
 	
-	List<String> exe = new ArrayList<>();
+	List<String> exeRL = new ArrayList<>();
 	List<String> results = new ArrayList<>();
-	List<String> users = new ArrayList<>();
+	List<String> usersRL = new ArrayList<>();
 	
 	
 	public List<String> listOfResults(String startDate, String endDate, String exercise, String user) throws ParseException{
@@ -49,20 +49,21 @@ public class ResultLog {
 	
 	
 	
-	public void createExerciseList() {
+	public List<String> createExerciseList() {
 		Connection conn = Connect.getConn();
 		PreparedStatement stmt;
 		try {
 			stmt = conn.prepareStatement("Select Navn from Ovelse");
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				exe.add(rs.getString("Navn"));
+				exeRL.add(rs.getString("Navn"));
 			}
-			System.out.println(exe);
+			return exeRL;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return exeRL;
 	}
 	public int getExerciseID(String øvelsenavn) {
 		
@@ -111,13 +112,13 @@ public class ResultLog {
 			stmt = conn.prepareStatement("Select Navn from Bruker");
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				users.add(rs.getString("Navn"));
+				usersRL.add(rs.getString("Navn"));
 			}
-			System.out.println(users);
+			return usersRL;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return users;
+		return usersRL;
 	}
 }
