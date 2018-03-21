@@ -10,24 +10,22 @@ import org.junit.jupiter.api.Test;
 
 public class ConnectTest extends Connect {
 
-	 //String message = "Connected!";
+	// String message = "Connected!";
 	static Connection conn;
-	
 
 	public static int checkConn() {
-			conn = Connect.getConn();
-			if (conn == null) {
-				return 0;
-			}
-			else {
-				return 1;
-			}	
+		conn = Connect.getConn();
+		if (conn == null) {
+			return 0;
+		} else {
+			return 1;
 		}
+	}
+
 	@Test
 	public void testPing() throws SQLException {
 
-		assertEquals(checkConn(),1);
+		assertEquals(checkConn(), 1);
 
-	
 	}
 }

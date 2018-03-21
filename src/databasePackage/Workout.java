@@ -13,30 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Workout {
-	
+
 	List<String> users = new ArrayList<>();
 	List<String> exe = new ArrayList<>();
-	
+
 	public int createID() throws SQLException {
 		int id = -1;
 		Connection conn = Connect.getConn();
-		PreparedStatement stmt = conn.prepareStatement("Select Count(TreningsoktID) as TreningsoktCount from Treningsokt"); 
+		PreparedStatement stmt = conn
+				.prepareStatement("Select Count(TreningsoktID) as TreningsoktCount from Treningsokt");
 		System.out.println(stmt);
-		
+
 		ResultSet rs = stmt.executeQuery();
 		rs.next();
 		System.out.println(rs.getInt("TreningsoktCount"));
-		
+
 		id = rs.getInt("TreningsoktCount");
 		stmt.close();
 		return id;
 	}
-	
-	public void registerNewWorkout(String Dato, String tid, int varighet, String Øvelser, int form, String øvelse, String username) {
+
+	public void registerNewWorkout(String Dato, String tid, int varighet, String Ovelser, int form, String Ovelse, String username) {
 		try {
 			int id = createID() + 1;
 			int uid = getUserID(username);
-			int eid = getExerciseID(øvelse);
+			int eid = getExerciseID(Ovelse);
 			
 			
 			String s = Dato;
@@ -48,7 +49,7 @@ public class Workout {
 			
 			Connection conn = Connect.getConn();
 			Statement stmt = conn.createStatement();
-			String sql = String.format("INSERT INTO `Treningsokt`(`TreningsoktID`, `Dato`, `Tidspunkt`, `Varighet`, `Ovelser`, `PersonligForm`, `OvelseID`, `BrukerID`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')", id, d, time, varighet, Øvelser, form, eid, uid);
+			String sql = String.format("INSERT INTO `Treningsokt`(`TreningsoktID`, `Dato`, `Tidspunkt`, `Varighet`, `Ovelser`, `PersonligForm`, `OvelseID`, `BrukerID`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')", id, d, time, varighet, Ovelser, form, eid, uid);
 			stmt.executeUpdate(sql);
 			stmt.close();
 			connectToExe(id,eid);
@@ -57,22 +58,23 @@ public class Workout {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void connectToExe(int wid, int eid) throws SQLException {
 		Connection conn = Connect.getConn();
 		Statement stmt = conn.createStatement();
-		String sql = String.format("INSERT INTO `Inneholder`(`OvelsegruppeID`, `OvelseID`) VALUES ('%s','%s')", wid,eid);
+		String sql = String.format("INSERT INTO `Inneholder`(`OvelsegruppeID`, `OvelseID`) VALUES ('%s','%s')", wid,
+				eid);
 		stmt.executeUpdate(sql);
 		stmt.close();
 	}
-	
+
 	public List<String> createUserList() {
 		Connection conn = Connect.getConn();
 		PreparedStatement stmt;
 		try {
 			stmt = conn.prepareStatement("Select Navn from Bruker");
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				users.add(rs.getString("Navn"));
 			}
 			System.out.println(users);
@@ -82,18 +84,19 @@ public class Workout {
 		}
 		return users;
 	}
+
 	public int getUserID(String username) {
-		
-		//initilize uid
-		int uid= 0;
-		
+
+		// initilize uid
+		int uid = 0;
+
 		try {
 			Connection conn = Connect.getConn();
-			PreparedStatement stmt = conn.prepareStatement("Select BrukerID from Bruker where Navn=?"); 
+			PreparedStatement stmt = conn.prepareStatement("Select BrukerID from Bruker where Navn=?");
 			stmt.setString(1, username);
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
-				uid = (rs.getInt(1)); 
+			while (rs.next()) {
+				uid = (rs.getInt(1));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -102,6 +105,7 @@ public class Workout {
 		}
 		return uid;
 	}
+
 	public void createExerciseList() {
 		Connection conn = Connect.getConn();
 		PreparedStatement stmt;
@@ -117,7 +121,8 @@ public class Workout {
 			e.printStackTrace();
 		}
 	}
-	public int getExerciseID(String øvelsenavn) {
+
+	public int getExerciseID(String Ovelsenavn) {
 		
 		//initilize uid
 		int eid= 0;
@@ -125,7 +130,7 @@ public class Workout {
 		try {
 			Connection conn = Connect.getConn();
 			PreparedStatement stmt = conn.prepareStatement("Select OvelseID from Ovelse where Navn=?"); 
-			stmt.setString(1, øvelsenavn);
+			stmt.setString(1, Ovelsenavn);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				eid = (rs.getInt(1)); 
