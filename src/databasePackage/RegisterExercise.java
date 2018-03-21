@@ -19,8 +19,8 @@ public class RegisterExercise {
 		PreparedStatement stmt = conn.prepareStatement("Select Count(�velseID) as �velseCount from �velse"); 
 		System.out.println(stmt);
 		
-			ResultSet rs = stmt.executeQuery();
-			rs.next();
+		ResultSet rs = stmt.executeQuery();
+		rs.next();
 		System.out.println(rs.getInt("�velseCount"));
 		
 		id = rs.getInt("�velseCount");
